@@ -5,7 +5,7 @@ var requests = require("requests");
 
 const homeFile = fs.readFileSync("home.html", "utf-8");
 
-const replaceVal = (tempVal, orgVal) => {
+const replaceValue = (tempVal, orgVal) => {
     let temperature = tempVal.replace("{%tempval%}", orgVal.main.temp);
      temperature = temperature.replace("{%tempmin%}", orgVal.main.temp_min);
      temperature = temperature.replace("{%tempmax%}", orgVal.main.temp_max);
@@ -26,7 +26,7 @@ const server = http.createServer((req, res) => {
             const objdata = JSON.parse(chunk);
             const arrData = [objdata];
             // console.log(arrData[0].main.temp);
-            const realTimeData = arrData.map(val => replaceVal(homeFile, val)).join("");
+            const realTimeData = arrData.map(val => replaceValue(homeFile, val)).join("");
             res.write(realTimeData);
             // console.log(realTimeData);
         })
